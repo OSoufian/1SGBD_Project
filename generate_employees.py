@@ -12,7 +12,7 @@ def random_social(social=1):
     
     return social
 
-ids_list = list(range(1, 11))
+ids_list = list(range(1, 69))
 routes_ids = list(range(1, 11))
 aircrash = 10
 routes = 50
@@ -29,9 +29,9 @@ pilote = []
 for i in range(len(ids_list)//5):
     var = random.choice(ids_list)
     ids_list.remove(var)
-    pilote.append("( " + ", ".join(["\""+(datetime.date(2021, 3, 23)
+    pilote.append("( " + ", ".join(["\""+(datetime.datetime.now()
         + datetime.timedelta(weeks=random.randrange(900))).strftime('%Y-%m-%d')+"\"",
-        "\""+(datetime.date(2021, 3, 23)
+        "\""+(datetime.datetime.now()
         +  datetime.timedelta(weeks=random.randrange(666))).strftime('%H:%M:%S')+"\"",
         str(var)]) + ")")
 
@@ -39,19 +39,18 @@ cabincrew = []
 for i in range(len(ids_list)//2):
     var = random.choice(ids_list)
     ids_list.remove(var)
-    cabincrew.append("(" + ", ".join(["\""+(datetime.date(2021, 3, 23)
+    cabincrew.append("(" + ", ".join(["\""+(datetime.datetime.now()
         + datetime.timedelta(weeks=random.randrange(666))).strftime('%H:%M:%S')+"\"",
         random.choice(("'Otesse'", "'Security'")), str(var)]) + ")")
 
 aircraft = ["(" + ", ".join(random.choice(list_plane)) + ")" for _ in
         range(aircrash)]
-route = ["(" + ", ".join(random.choice(list_route)) + ")" for _ in
+route = ["(" + ", ".join([random.choice(list_route) for _ in range(2)]) + ")" for _ in
         range(routes)]
 
 departures = []
 ids_pilotes = list(range(1, len(pilote)))
 aircrews_lists = list(range(1, len(cabincrew)))
-
 while len(ids_pilotes) > 1:    
     pilote_id = random.choice(ids_pilotes)
     ids_pilotes.remove(pilote_id)
@@ -70,6 +69,7 @@ while len(ids_pilotes) > 1:
         3,23)+datetime.timedelta(weeks=random.randrange(666))).strftime("%Y-%m-%d")+"\"",str(pilote_id),
         str(copilote_id), str(aircrew_id,occupied), str(free_place)])+")")
 
+print(len(departures))
 fligth = []
 departures_ids= list(range(1, len(departures)))
 id_routes = list(range(1, len(route)))
@@ -83,7 +83,7 @@ while len(departures_ids) > 0 and len(id_routes) > 0 and len(id_deveices) > 0:
     id_routes.remove(route_id)
     id_devices.remove(device_id)
 
-    fligth.append("("+", ".join([str(departure_id), "\""+(datetime.date(2021, 3, 23)
+    fligth.append("("+", ".join([str(departure_id), "\""+(datetime.datetime.now()
         + datetime.timedelta(weeks=random.randrange(666))).strftime("%Y-%m-%d")+"\"",
         str(route_id), str(device_id)]))
 
@@ -95,7 +95,7 @@ for _ in range(len(departures_ids)):
     depare_id = random.choice(departures_ids)
     departures_ids.remove(depare_id)
 
-    ticket.append("(" + ", ".join(["\""+(datetime.date(2021, 3, 23)+
+    ticket.append("(" + ", ".join(["\""+(datetime.datetime.now()+
         datetime.timedelta(weeks=random.randrange(666))).strftime("%Y-%m-%d")+"\"",
         str(random.randint(120, 300000)), str(depare_id)])+")")
 
@@ -123,12 +123,12 @@ cursor.execute("SET GLOBAL FOREIGN_KEY_CHECKS=0;")
 connection.commit()
 
 Employee_query = "INSERT INTO `employees`(`salary`, `social_security`, `name`, `first_name`, `address`) VALUES "+ ",\n".join(employees)
-Pilote_query = "INSERT INTO `pilote`(`licence`, `among`, `staff_id`) VALUES " + ",\n".join(pilote)
-print(Pilote_query)
+Pilote_query = "INSERT INTO `pilote` (`licence`, `among`, `staff_id`) VALUES " + ",\n".join(pilote)
 Cabincrew =  "INSERT INTO `cabincrew`(`amoung`, `fonction`, `staff_id`)  VALUES"+",\n".join(cabincrew)
 Aircraft = "INSERT INTO `device`(`capacity`, `type`) VALUES " + ",\n".join(aircraft)
-Route = "INSERT INTO `route`(`id`, `origin`, `arrival`) VALUES " + ",\n".join(route)
+Route = "INSERT INTO `route`(`origin`, `arrival`) VALUES " + ",\n".join(route)
 Departures = "INSERT INTO `departures`(`date`, `pilote`, `copilote`, `aircrew`,`free_places`, `occupied`) VALUES " + ",\n".join(departures) 
+print(Departures)
 Fligth = "INSERT INTO `flight`(`id_departures`, `arrival`, `id_route`,`id_device`) VALUES " + ", \n".join(fligth)
 Ticket = "INSERT INTO `tickets`(`expire`, `price`, `departures_id`) VALUES " + ", \n".join(ticket)
 Passenger = "INSERT INTO `passenger`(`name`, `first_name`, `adress`, `profession`, `bank`, `ticket_id`) VALUES " + ", \n".join(passenger)
