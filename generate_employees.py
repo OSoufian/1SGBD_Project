@@ -91,7 +91,7 @@ for i in range(30):
 #         str(copilote_id), str(aircrew_id), str(free_place), str(occupied)])+")")
 
 
-fligth = []
+flight = []
 departures_ids = list(range(1, len(departures)))
 id_routes = list(range(1, len(route)))
 id_devices = list(range(1, len(aircraft)))
@@ -103,7 +103,7 @@ for i in range(29):
     departures_ids.remove(departure_id)
     id_routes.remove(route_id)
 
-    fligth.append("("+", ".join([str(departure_id),"\""+(datetime.datetime.now()).strftime("%Y-%m-%d")+"\"", "\""+(datetime.datetime.now()
+    flight.append("("+", ".join([str(departure_id),"\""+(datetime.datetime.now()).strftime("%Y-%m-%d")+"\"", "\""+(datetime.datetime.now()
         + datetime.timedelta(weeks=random.randrange(666))).strftime("%Y-%m-%d")+"\"",
         str(route_id), str(device_id)])+ ")")
 
@@ -150,7 +150,7 @@ Cabincrew =  "INSERT INTO `cabincrew`(`among`, `fonction`, `staff_id`)  VALUES"+
 Aircraft = "INSERT INTO `device`(`capacity`, `type`) VALUES " + ",\n".join(aircraft)
 Route = "INSERT INTO `route`(`origin`, `arrival`) VALUES " + ",\n".join(route)
 Departures = "INSERT INTO `departures`(`date`, `pilote`, `copilote`, `aircrew`,`free_places`, `occupied`) VALUES " + ",\n".join(departures) 
-Fligth = "INSERT INTO `flight`(`id_departures`, `validity_start`, `validity_end`, `id_route`,`id_device`) VALUES " + ", \n".join(fligth)
+Flight = "INSERT INTO `flight`(`id_departures`, `validity_start`, `validity_end`, `id_route`,`id_device`) VALUES " + ", \n".join(flight)
 Ticket = "INSERT INTO `tickets`(`issue_date`, `price`, `departures_id`) VALUES " + ", \n".join(ticket)
 Passenger = "INSERT INTO `passenger`(`name`, `first_name`, `address`, `profession`, `bank`, `ticket_id`) VALUES " + ", \n".join(passenger)
 
@@ -160,7 +160,7 @@ cursor.execute(Pilote_query)
 cursor.execute(Cabincrew)
 cursor.execute(Aircraft)
 cursor.execute(Route)
-cursor.execute(Fligth)
+cursor.execute(Flight)
 cursor.execute(Departures)
 cursor.execute(Ticket)
 cursor.execute(Passenger)
