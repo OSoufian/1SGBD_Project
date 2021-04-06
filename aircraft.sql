@@ -88,7 +88,7 @@ CREATE TABLE `employees` (
 CREATE TABLE `flight` (
   `id` int NOT NULL,
   `id_departures` int DEFAULT NULL,
-  `arrival` datetime DEFAULT NULL,
+  `validity_end` datetime DEFAULT NULL,
   `id_route` int DEFAULT NULL,
   `id_device` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -131,7 +131,7 @@ CREATE TABLE `pilote` (
 CREATE TABLE `route` (
   `id` int NOT NULL,
   `origin` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `arrival` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+  `validity_end` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -143,7 +143,7 @@ CREATE TABLE `route` (
 
 CREATE TABLE `tickets` (
   `id` int NOT NULL,
-  `expire` date NOT NULL,
+  `issue_date` date NOT NULL,
   `price` int NOT NULL,
   `departures_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -296,9 +296,9 @@ ALTER TABLE `departures`
 -- Contraintes pour la table `flight`
 --
 ALTER TABLE `flight`
-  ADD CONSTRAINT `Fligth_ibfk_1` FOREIGN KEY (`id_departures`) REFERENCES `departures` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Fligth_ibfk_2` FOREIGN KEY (`id_route`) REFERENCES `route` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Fligth_ibfk_3` FOREIGN KEY (`id_device`) REFERENCES `device` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Flight_ibfk_1` FOREIGN KEY (`id_departures`) REFERENCES `departures` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Flight_ibfk_2` FOREIGN KEY (`id_route`) REFERENCES `route` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Flight_ibfk_3` FOREIGN KEY (`id_device`) REFERENCES `device` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `pilote`
