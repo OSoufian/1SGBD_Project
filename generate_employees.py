@@ -98,4 +98,64 @@ for i in range(29):
 
 # Table ticket
 ticket = []
-... (62 lines left)
+departures_ids= list(range(1, len(departures)))
+
+for i in range(500):
+    depare_id = random.choice(departures_ids)
+
+    ticket.append("(" + ", ".join(["\""+(datetime.datetime.now()+
+        datetime.timedelta(weeks=random.randrange(666))).strftime("%Y-%m-%d")+"\"",
+        str(random.randint(30, 200)), str(depare_id)])+")")
+
+# Table passenger
+passenger = []
+tickets_ids = list(range(1, len(ticket)))
+while len(tickets_ids) > 0:
+    passenger_info = ", ".join(["\""+names.get_last_name()+"\"",
+        "\""+names.get_first_name()+"\"",
+        "\""+fake.address()+"\"", 
+        "\""+fake.job()+"\"",
+        "\""+fake.iban()+"\""])
+    tickets = random.randint(0, 4)
+    if len(tickets_ids) < tickets:
+        tickets = len(tickets_ids)
+    for _ in range(tickets):
+        ticket_id = random.choice(tickets_ids)
+        tickets_ids.remove(ticket_id)
+        passenger.append("(" + passenger_info +", " +str(ticket_id)+")")
+
+
+
+# Connexion à la base de données
+connection = pymysql.connect(host="127.0.0.1", user="root", password="", database="aircraft")
+cursor = connection.cursor()
+cursor.execute("SET GLOBAL FOREIGN_KEY_CHECKS=0;")
+connection.commit()
+
+# Insérer les différentes valeurs des tables dans la base de données dans de requêtes MySQL
+Employee_query = "INSERT INTO `employees`(`salary`, `social_security`, `name`, `first_name`, `address`) VALUES "+ ",\n".join(employees)
+Pilote_query = "INSERT INTO `pilote` (`license`, `among`, `staff_id`) VALUES " + ",\n".join(pilote)
+Cabincrew =  "INSERT INTO `cabincrew`(`among`, `fonction`, `staff_id`)  VALUES"+",\n".join(cabincrew)
+Aircraft = "INSERT INTO `device`(`capacity`, `type`) VALUES " + ",\n".join(aircraft)
+Route = "INSERT INTO `route`(`origin`, `arrival`) VALUES " + ",\n".join(route)
+Departures = "INSERT INTO `departures`(`date`, `pilote`, `copilote`, `aircrew`,`free_places`, `occupied`) VALUES " + ",\n".join(departures) 
+Fligth = "INSERT INTO `flight`(`id_departures`, `validity_start`, `validity_end`, `id_route`,`id_device`) VALUES " + ", \n".join(fligth)
+Ticket = "INSERT INTO `tickets`(`issue_date`, `price`, `departures_id`) VALUES " + ", \n".join(ticket)
+Passenger = "INSERT INTO `passenger`(`name`, `first_name`, `address`, `profession`, `bank`, `ticket_id`) VALUES " + ", \n".join(passenger)
+
+# Exécuter les différentes requêtes
+cursor.execute(Employee_query)
+cursor.execute(Pilote_query)
+cursor.execute(Cabincrew)
+cursor.execute(Aircraft)
+cursor.execute(Route)
+cursor.execute(Fligth)
+cursor.execute(Departures)
+cursor.execute(Ticket)
+cursor.execute(Passenger)
+
+connection.commit()
+connection.close()
+
+
+print("Les tables se sont remplies avec succès")
