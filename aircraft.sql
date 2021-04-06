@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 22 mars 2021 à 18:15
+-- Généré le : mar. 06 avr. 2021 à 14:05
 -- Version du serveur :  8.0.23
 -- Version de PHP : 8.0.3
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cabincrew` (
   `id` int NOT NULL,
-  `amoung` time NOT NULL,
+  `among` time NOT NULL,
   `fonction` varchar(666) NOT NULL,
   `staff_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -42,15 +42,13 @@ CREATE TABLE `cabincrew` (
 
 CREATE TABLE `departures` (
   `id` int NOT NULL,
-  `date` datetime DEFAULT NULL,
-  `pilote` int DEFAULT NULL,
-  `copilote` int DEFAULT NULL,
-  `aircrew` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `free_places` int DEFAULT NULL,
-  `occupied` int DEFAULT NULL
+  `date` date NOT NULL,
+  `pilote` int NOT NULL,
+  `copilote` int NOT NULL,
+  `aircrew` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `free_places` int NOT NULL,
+  `occupied` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `device`
@@ -62,24 +60,18 @@ CREATE TABLE `device` (
   `type` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
--- --------------------------------------------------------
-
 --
 -- Structure de la table `employees`
 --
 
 CREATE TABLE `employees` (
   `id` int NOT NULL,
-  `salary` int DEFAULT NULL,
-  `social_security` char(15) DEFAULT NULL,
-  `name` varchar(250) DEFAULT NULL,
-  `first_name` varchar(250) DEFAULT NULL,
-  `address` varchar(250) DEFAULT NULL
+  `salary` int NOT NULL,
+  `social_security` bigint NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `first_name` varchar(250) NOT NULL,
+  `address` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `flight`
@@ -87,10 +79,11 @@ CREATE TABLE `employees` (
 
 CREATE TABLE `flight` (
   `id` int NOT NULL,
-  `id_departures` int DEFAULT NULL,
-  `validity_end` datetime DEFAULT NULL,
-  `id_route` int DEFAULT NULL,
-  `id_device` int DEFAULT NULL
+  `id_departures` int NOT NULL,
+  `validity_end` date NOT NULL,
+  `id_route` int NOT NULL,
+  `id_device` int NOT NULL,
+  `validity_start` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -103,13 +96,11 @@ CREATE TABLE `passenger` (
   `id` int NOT NULL,
   `name` varchar(666) NOT NULL,
   `first_name` varchar(666) NOT NULL,
-  `adress` varchar(666) NOT NULL,
-  `profession` varchar(666) DEFAULT NULL,
-  `bank` varchar(666) DEFAULT NULL,
-  `ticket_id` int DEFAULT NULL
+  `address` varchar(666) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `profession` varchar(666) NOT NULL,
+  `bank` varchar(666) NOT NULL,
+  `ticket_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `pilote`
@@ -117,12 +108,10 @@ CREATE TABLE `passenger` (
 
 CREATE TABLE `pilote` (
   `id` int NOT NULL,
-  `licence` date DEFAULT NULL,
-  `staff_id` int DEFAULT NULL,
-  `amoung` time DEFAULT NULL
+  `license` date NOT NULL,
+  `among` time NOT NULL,
+  `staff_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `route`
@@ -131,9 +120,8 @@ CREATE TABLE `pilote` (
 CREATE TABLE `route` (
   `id` int NOT NULL,
   `origin` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `validity_end` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+  `arrival` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 
 -- --------------------------------------------------------
 
@@ -147,10 +135,6 @@ CREATE TABLE `tickets` (
   `price` int NOT NULL,
   `departures_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Index pour les tables déchargées
---
 
 --
 -- Index pour la table `cabincrew`
@@ -225,55 +209,55 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT pour la table `cabincrew`
 --
 ALTER TABLE `cabincrew`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT pour la table `departures`
 --
 ALTER TABLE `departures`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT pour la table `device`
 --
 ALTER TABLE `device`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT pour la table `flight`
 --
 ALTER TABLE `flight`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT pour la table `passenger`
 --
 ALTER TABLE `passenger`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1104;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=500;
 
 --
 -- AUTO_INCREMENT pour la table `pilote`
 --
 ALTER TABLE `pilote`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `route`
 --
 ALTER TABLE `route`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT pour la table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
 
 --
 -- Contraintes pour les tables déchargées
@@ -296,9 +280,15 @@ ALTER TABLE `departures`
 -- Contraintes pour la table `flight`
 --
 ALTER TABLE `flight`
-  ADD CONSTRAINT `Flight_ibfk_1` FOREIGN KEY (`id_departures`) REFERENCES `departures` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Flight_ibfk_2` FOREIGN KEY (`id_route`) REFERENCES `route` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Flight_ibfk_3` FOREIGN KEY (`id_device`) REFERENCES `device` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Fligth_ibfk_1` FOREIGN KEY (`id_departures`) REFERENCES `departures` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Fligth_ibfk_2` FOREIGN KEY (`id_route`) REFERENCES `route` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Fligth_ibfk_3` FOREIGN KEY (`id_device`) REFERENCES `device` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `passenger`
+--
+ALTER TABLE `passenger`
+  ADD CONSTRAINT `Passenger_ibfk_1` FOREIGN KEY (`ticket_id`) REFERENCES `tickets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `pilote`
