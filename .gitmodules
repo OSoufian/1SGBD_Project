@@ -1,6 +1,6 @@
-[submodule "Cours"]
+[submodule "COURS"]
 	path = Cours
-	url = https://github.com/CYPT71/Cours.git
-[submodule "1SGBG_DIAGRAM"]
+	url = https://github.com/OSoufian/1SGBD_COURS.git
+[submodule "DIAGRAM"]
 	path = 1SGBG_DIAGRAM
-	url = git@github.com:CYPT71/1SGBG_DIAGRAM.git
+	url = https://github.com/OSoufian/1SGBD_DIAGRAM.git
