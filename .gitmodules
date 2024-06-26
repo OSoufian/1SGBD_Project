@@ -1,6 +1,6 @@
 [submodule "COURS"]
-	path = Cours
+	path = COURS
 	url = https://github.com/OSoufian/1SGBD_COURS.git
 [submodule "DIAGRAM"]
-	path = 1SGBG_DIAGRAM
+	path = DIAGRAM
 	url = https://github.com/OSoufian/1SGBD_DIAGRAM.git
